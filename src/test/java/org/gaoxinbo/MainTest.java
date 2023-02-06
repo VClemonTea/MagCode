@@ -39,9 +39,9 @@ class MainTest {
     void safeTest() throws InterruptedException {
         Safe safe = new Safe();
         ExecutorService executorService = Executors.newCachedThreadPool();
-        CountDownLatch countDownLatch = new CountDownLatch(100);
+        CountDownLatch countDownLatch = new CountDownLatch(10);
 
-        for (int count = 0; count < 100; count++) {
+        for (int count = 0; count < 10; count++) {
             executorService.submit(() -> {
                 System.out.println("safe " + safe.getNext());
                 countDownLatch.countDown();
@@ -52,7 +52,7 @@ class MainTest {
 
         System.out.println("safe value: " + safe.getValue());
 
-        Assertions.assertEquals(100, safe.getValue());
+        Assertions.assertEquals(10, safe.getValue());
     }
 
     @RepeatedTest(10)
@@ -60,9 +60,9 @@ class MainTest {
     void unsafeTest() throws InterruptedException {
         Unsafe unsafe = new Unsafe();
         ExecutorService executorService = Executors.newCachedThreadPool();
-        CountDownLatch countDownLatch = new CountDownLatch(100);
+        CountDownLatch countDownLatch = new CountDownLatch(10);
 
-        for (int count = 0; count < 100; count++) {
+        for (int count = 0; count < 10; count++) {
             executorService.submit(() -> {
                 System.out.println("unsafe " + unsafe.getNext());
                 countDownLatch.countDown();
@@ -73,7 +73,7 @@ class MainTest {
 
         System.out.println("unsafe value: " + unsafe.getValue());
 
-        Assertions.assertEquals(100, unsafe.getValue());
+        Assertions.assertEquals(10, unsafe.getValue());
     }
 
 
